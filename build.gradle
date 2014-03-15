@@ -12,6 +12,9 @@ repositories {
 dependencies {
 	compile localGroovy()
 	compile gradleApi()
+
+	testCompile "org.gradle:gradle-tooling-api:${gradle.gradleVersion}"
+	testCompile "junit:junit:4.10"
 }
 
 [
