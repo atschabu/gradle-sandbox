@@ -14,3 +14,10 @@ dependencies {
 	compile gradleApi()
 }
 
+[
+	'src/main/java',
+	'src/main/groovy',
+	'src/test/java',
+	'src/test/groovy'
+].each { project.file(it).mkdirs() }
+
