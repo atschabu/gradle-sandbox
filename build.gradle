@@ -1,0 +1,16 @@
+apply plugin: 'groovy'
+apply plugin: 'idea'
+
+
+repositories {
+	mavenCentral()
+	maven {
+		url 'http://repo.gradle.org/gradle/libs-releases-local'
+	}
+}
+
+dependencies {
+	compile localGroovy()
+	compile gradleApi()
+}
+
