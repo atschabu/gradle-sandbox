@@ -1,5 +1,6 @@
 package atschabu.gradle.test
 
+import atschabu.gradle.plugins.DummyPlugin
 import atschabu.gradle.test.helper.BuildHandle
 import atschabu.gradle.test.helper.ProjectDirBuilder
 import atschabu.gradle.test.helper.blocks.CustomBuilderBlock
@@ -40,6 +41,14 @@ class TestTest {
     void dummyPluginIsApplied() {
         builder.build()
         assertNotNull(handle.project.tasks.find { it.name == 'dummy' })
+    }
+
+    @Test
+    void dummyPluginRunsSuccessful() {
+        new DummyPlugin().printSomething()
+
+        builder.build()
+        handle.run('dummy')
     }
 
     @Test

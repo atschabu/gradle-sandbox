@@ -12,3 +12,6 @@ While ProjectBuilder is a nice tool to create quickly (in terms of execution) a 
 Using org.gradle:gradle-tooling-api it is possible to easily launch a Gradle build within a well known space, and test the actual execution of all tasks defined in a plugin. The main challenge is to create the fake environment.
 
 While it is easy to create any environment, I will need to be able to replicate the actual development environment (including all its legacy flaws) as close as possible, to make sure my custom tasks only fail when they are supposed to fail (incorrect usage, configuration) and let the user know why they fail, and how it can be fixed.
+
+#### Jacoco for integration tests
+while adding jacoco proved easy to do, it is not really usable. Because the created daemons will outlive the build, the code coverage will not be stored until manually stopping the daemons.

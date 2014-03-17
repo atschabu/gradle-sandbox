@@ -1,6 +1,6 @@
 apply plugin: 'groovy'
 apply plugin: 'idea'
-
+apply plugin: 'jacoco'
 
 repositories {
 	mavenCentral()
@@ -24,3 +24,21 @@ dependencies {
 	'src/test/groovy'
 ].each { project.file(it).mkdirs() }
 
+test {
+    ext {
+        daemonJacocoExecFile = new File(buildDir, 'jacoco/daemon.exec')
+    }
+
+    doFirst {
+        // jacoco plugin adds a configuration called 'jacocoAgent' with a single dependency towards the agent
+        // but we actually want a jar within this dependency. Fortunately the existing build is unpacking it for us and
+        // stores the jar within the build folder, calling jacoco.agent.jar returns a File with the path.
+        // as we don't want to resolve any configurations outside execution phase we do this within an action
+        systemProperty('org.gradle.jvmargs', "-javaagent:${jacoco.agent.jar.absolutePath}=destfile=${daemonJacocoExecFile.absolutePath}")
+        logger.info("adding jacoco agent to jvm args for daemon: ${systemProperties['org.gradle.jvmargs']}")
+    }
+}
+
+jacocoTestReport {
+    executionData += files(test.daemonJacocoExecFile)
+}
