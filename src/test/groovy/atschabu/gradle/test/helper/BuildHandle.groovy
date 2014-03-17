@@ -36,13 +36,20 @@ class BuildHandle {
         return connection.getModel(GradleProject)
     }
 
-    void setArguments(String ... args) {
+    /**
+     * will set arguments, removing any previously set arguments
+     * @param args
+     * @return
+     */
+    BuildHandle withArguments(String ... args) {
         launcher.withArguments(args)
+        return this
     }
 
-    void run(String... tasks) {
+    BuildHandle run(String... tasks) {
         launcher.forTasks(tasks)
         launcher.run()
+        return this
     }
 
     void close() {
